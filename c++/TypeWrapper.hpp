@@ -60,6 +60,8 @@ public:
 
 	friend std::ostream& operator<<(std::ostream &out, const TypeWrapper<T> &tw)
 	{
+		out << typeid(*this).name();
+		out << ": ";
 		out << tw.value;
 		return out;
 	}
