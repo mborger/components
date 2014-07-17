@@ -15,6 +15,8 @@
  */
 
 #pragma once
+#include <cstdlib>
+#include <cxxabi.h>
 #include <functional>
 #include <typeinfo>
 #include <ostream>
@@ -60,9 +62,17 @@ public:
 
 	friend std::ostream& operator<<(std::ostream &out, const TypeWrapper<T> &tw)
 	{
-		out << typeid(*this).name();
+		/* C++ mangles type names but there is a cross vendor
+		 * api available to demangle that name.
+		 */
+		int demangledStatus;
+		char* demangledName;
+		demangledName = abi::__cxa_demangle(
+				typeid(tw).name(), 0, 0, &demangledStatus);
+		out << demangledName;
 		out << ": ";
 		out << tw.value;
+		std::free(demangledName);
 		return out;
 	}
 
@@ -79,6 +89,11 @@ protected:
 	TypeWrapper() {}
 };
 
+/* This macro check is for C++11.
+ * The hash object and hash based structures weren't
+ * included in the STL until C++11.
+ */
+#if __cplusplus > 199711L
 namespace std {
 
 /**
@@ -106,3 +121,4 @@ class hash<TypeWrapper<T>> {
 };
 
 } //namespace std
+#endif
