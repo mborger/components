@@ -112,7 +112,8 @@ namespace std {
  * @endcode
  */
 template<typename T>
-class hash<TypeWrapper<T>> {
+class hash<TypeWrapper<T>>
+{
 	public:
 	std::size_t operator()(const TypeWrapper<T>& t) const
 	{
