@@ -68,10 +68,8 @@ public:
 		int demangledStatus;
 		char* demangledName;
 		demangledName = abi::__cxa_demangle(
-				typeid(tw).name(), 0, 0, &demangledStatus);
-		out << demangledName;
-		out << ": ";
-		out << tw.value;
+				typeid(tw).name(), NULL, NULL, &demangledStatus);
+		out << demangledName << "[value=" << tw.value << "]";
 		std::free(demangledName);
 		return out;
 	}

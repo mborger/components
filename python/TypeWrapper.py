@@ -40,7 +40,7 @@ class TypeWrapper:
         return self.value.__hash__()
 
     def __str__(self):
-        return "{0}: {1}".format(self.__class__.__name__, self.value.__str__())
+        return "{0}[value={1}]".format(self.__class__.__name__, self.value.__str__())
 
     def getValue(self):
         return self.value
