@@ -1,4 +1,9 @@
+# Windows executables
+*.exe
+
+# Makefile targets
 a.out
-a.exe
 TypeWrapperExample
-TypeWrapperExample.exe
+
+# Compiled headers
+*.gch
